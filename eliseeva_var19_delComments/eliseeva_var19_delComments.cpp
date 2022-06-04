@@ -2,10 +2,44 @@
 //
 
 #include <iostream>
+#include <string>
+#include <fstream>
+#include<vector>
+using namespace std;
 
-int main()
+int main(const int argc, char** argv)
 {
-    std::cout << "Hello World!\n";
+    setlocale(LC_ALL, "rus");
+
+    //Выдать ошибку, если входной файл не указанив аргументах командной строки
+    if (argc == 1)
+    {
+        cout << "Входной файл не указан." << endl;
+        return 0;
+    }
+
+    //Выдать ошибку, если входной файл невозможно открыть 
+    string path = argv[1];//путь ко входному файлу 
+
+    fstream fin;//объект типа ifstream (содержание входного файла)
+    fin.open(path);
+
+    if (!fin.is_open())
+    {
+        cout << "Входной файл" << path << "Невозможно открыть." << endl;
+        return 0;
+    }
+
+    string line;
+    vector<string> text;
+
+    while (!fin.eof())
+    {
+        getline(fin, line);
+        text.push_back(line);
+    }
+    fin.close();
+    int numberString = text.size();
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
