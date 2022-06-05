@@ -39,11 +39,90 @@ int main(const int argc, char** argv)
         text.push_back(line);
     }
     fin.close();
-    int numberString = text.size();
+    
 }
 
 void delComments(vector<string>& text)
 {
+    int numberString = text.size();//количество строк в тексте
+    char* beginComment = NULL; //указатель на начало многострочного комментария
+    char* endComment = NULL; //указатель на конец многострочного комментария
+    int indexRowBegin = 0; //индек строки начала комментария
+    int indexRowEnd = 0; //индекс строки конца комментария
+
+    try {
+        findBeginComment(&beginComment, text, numberString, &indexRowBegin);
+        findEndComment(&endComment, text, numberString, &indexRowEnd);
+        if (endComment < beginComment||endComment==NULL&&beginComment!=NULL||endComment!=NULL&&beginComment==NULL)
+            throw 1; //неправильно обозначены многострочные комментарии
+        if (endComment == NULL && beginComment == NULL)
+            throw 2;//нет многострочных комментариев 
+    }
+    catch (int& exception)
+    {
+        if (exception == 1)
+            cout << "Некорректно обозначены многострочные комментарии" << endl;
+        else
+            cout << "Нет многострочных комментариев" << endl;
+    }
+
+    *beginComment = '/0';
+    indexRowBegin++;
+    while (indexRowBegin != indexRowEnd)
+    {
+        text[indexRowBegin].clear();
+        text[indexRowBegin] = "0";
+        indexRowBegin++;
+    }
+    string copy;//вспомогательная строка
+    copy[0] = 0;
+    for (endComment += 2; endComment < &text[indexRowEnd].back(); endComment++)
+    {
+        int count = 0;
+        copy[count] = *endComment;
+    }
+    text[indexRowEnd].clear();
+    text[indexRowEnd] = copy;
+    
+    while (beginComment != NULL || endComment != NULL)
+    {
+        try {
+            while (indexRowBegin == indexRowEnd)
+            {
+                findBeginComment(&beginComment, text, numberString, &indexRowBegin);
+                findEndComment(&endComment, text, numberString, &indexRowEnd);
+                if (endComment < beginComment || endComment == NULL && beginComment != NULL || endComment != NULL && beginComment == NULL)
+                    throw 1; //неправильно обозначены многострочные комментарии
+            }
+        }
+        catch (int& exception)
+        {
+            if (exception == 1)
+                cout << "Некорректно обозначены многострочные комментарии" << endl;
+        }
+        if (beginComment != NULL && endComment != NULL)
+        {
+            *beginComment = '/0';
+            indexRowBegin++;
+            while (indexRowBegin != indexRowEnd)
+            {
+                text[indexRowBegin].clear();
+                text[indexRowBegin] = "0";
+                indexRowBegin++;
+            }
+            string copy;//вспомогательная строка
+            copy[0] = 0;
+            for (endComment += 2; endComment < &text[indexRowEnd].back(); endComment++)
+            {
+                int count = 0;
+                copy[count] = *endComment;
+            }
+            text[indexRowEnd].clear();
+            text[indexRowEnd] = copy;
+        }
+    }
+   
+   
 
 }
 
