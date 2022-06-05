@@ -42,6 +42,31 @@ int main(const int argc, char** argv)
     int numberString = text.size();
 }
 
+void delComments(vector<string>& text)
+{
+
+}
+
+void findBeginComment(char** beginComment, vector<string>& text, int numberString, int* indexRowBegin)
+{
+
+}
+
+void findEndComment(char** endComment, vector<string>& text, int numberString, int* indexRowEnd)
+{
+
+}
+
+void saveResult(vector<string>& text, int numberString)
+{
+
+}
+
+
+
+
+
+
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
 

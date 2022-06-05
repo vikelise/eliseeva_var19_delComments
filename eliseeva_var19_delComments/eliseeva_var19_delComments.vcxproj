@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="eliseeva_var19_delComments.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="eliseeeva_var19_delComments.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
